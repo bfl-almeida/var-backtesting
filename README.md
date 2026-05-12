@@ -127,29 +127,45 @@ Delete that file to force a fresh download.
 ### Example summary table output
 
 ```
+Backtest period : 2010-12-31 to 2026-05-11
+Observations    : 3862
+Exceptions      : 58  (observed rate 1.50%, expected 1.00 %)
+
 Metric                                        Value
--------------------------------------------------------
-Exceptions (full period)                        XXX
-Observations (full period)                     XXXX
-Observed exception rate                       X.XX%
--------------------------------------------------------
-Kupiec LR statistic                          X.XXXX
-Kupiec p-value                               X.XXXX
-Kupiec — reject H0 at 5 %                    False
--------------------------------------------------------
-Christoffersen LR statistic                  X.XXXX
-Christoffersen p-value                       X.XXXX
-Christoffersen — reject H0 at 5 %            False
-...
-Basel zone (last 250 days, N=X)              GREEN
--------------------------------------------------------
+---------------------------------------------------
+Exceptions (full period)                         58
+Observations (full period)                     3862
+Observed exception rate                       1.50%
+---------------------------------------------------
+Kupiec LR statistic                          8.5124
+Kupiec p-value                               0.0035
+Kupiec — reject H0 at 5 %                     True
+---------------------------------------------------
+Christoffersen LR statistic                 18.2891
+Christoffersen p-value                       0.0000
+Christoffersen — reject H0 at 5 %             True
+---------------------------------------------------
+Conditional coverage LR statistic           26.8016
+Conditional coverage p-value                 0.0000
+Conditional coverage — reject H0 at 5 %      True
+---------------------------------------------------
+Basel zone (last 250 days, N=0)              GREEN
+---------------------------------------------------
+Latest VaR estimate                           1.75%
+Latest ES  estimate                           2.17%
+ES / VaR ratio (latest)                       1.25x
+---------------------------------------------------
+Average rolling VaR (full period)             2.88%
+Average rolling ES  (full period)             3.55%
+ES / VaR ratio (average)                      1.23x
+---------------------------------------------------
 ```
 
 ### Example plot
 
 The plot is written to `examples/output/backtest_plot.png`:
 
-![Backtest plot](examples/output/backtest_plot.png)
+![Backtest plot — SPY returns, rolling VaR and ES, exception markers](examples/output/backtest_plot.png)
 
 ---
 

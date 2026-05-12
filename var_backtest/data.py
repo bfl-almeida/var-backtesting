@@ -48,7 +48,10 @@ def load_spy_returns(
     cache_path = os.path.abspath(cache_path)
 
     if os.path.exists(cache_path):
-        prices = pd.read_csv(cache_path, index_col=0, parse_dates=True).iloc[:, 0]
+        prices = pd.read_csv(cache_path, index_col=0).iloc[:, 0]
+        prices = pd.to_numeric(prices, errors="coerce")
+        prices.index = pd.to_datetime(prices.index, errors="coerce")
+        prices = prices[prices.index.notna() & prices.notna()]
         if prices.empty:
             # Cache was written from a failed/empty download — discard and re-download
             os.remove(cache_path)

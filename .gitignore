@@ -27,6 +27,5 @@ build/
 .DS_Store
 Thumbs.db
 
-# Generated output (keep the directory, ignore generated files)
+# Generated output (keep the directory, ignore the data cache but track the plot)
 examples/output/spy_prices.csv
-examples/output/backtest_plot.png
