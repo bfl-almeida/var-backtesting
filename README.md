@@ -159,6 +159,26 @@ Average rolling VaR (full period)             2.88%
 Average rolling ES  (full period)             3.55%
 ES / VaR ratio (average)                      1.23x
 ---------------------------------------------------
+
+Last 250 Trading Days — Regulatory Window
+---------------------------------------------------
+Exceptions (last 250 days)                        0
+Observed exception rate                       0.00%
+---------------------------------------------------
+Kupiec LR statistic                          5.0252
+Kupiec p-value                               0.0250
+Kupiec — reject H0 at 5 %                     True
+---------------------------------------------------
+Christoffersen LR statistic                  0.0000
+Christoffersen p-value                       1.0000
+Christoffersen — reject H0 at 5 %            False
+---------------------------------------------------
+Conditional coverage LR statistic            5.0252
+Conditional coverage p-value                 0.0811
+Conditional coverage — reject H0 at 5 %     False
+---------------------------------------------------
+Basel zone (N=0)                             GREEN
+---------------------------------------------------
 ```
 
 ### Example plot

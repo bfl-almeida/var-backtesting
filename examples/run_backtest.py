@@ -120,6 +120,36 @@ def main() -> None:
     print(sep)
 
     # ------------------------------------------------------------------
+    # 7. Last-250-day backtest (regulatory window)
+    # ------------------------------------------------------------------
+    exc_last_250 = exceptions.iloc[-250:]
+    kupiec_250 = kupiec_test(exc_last_250, alpha=0.99)
+    christoffersen_250 = christoffersen_test(exc_last_250)
+    cc_250 = conditional_coverage_test(exc_last_250, alpha=0.99)
+    n_250 = int(exc_last_250.sum())
+    zone_250 = traffic_light(n_250)
+
+    print(f"\n{'Last 250 Trading Days — Regulatory Window'}")
+    print(sep)
+    print(row("Exceptions (last 250 days)", n_250))
+    print(row("Observed exception rate", f"{n_250 / 250:.2%}"))
+    print(sep)
+    print(row("Kupiec LR statistic", f"{kupiec_250.statistic:.4f}"))
+    print(row("Kupiec p-value", f"{kupiec_250.p_value:.4f}"))
+    print(row("Kupiec — reject H0 at 5 %", kupiec_250.reject))
+    print(sep)
+    print(row("Christoffersen LR statistic", f"{christoffersen_250.statistic:.4f}"))
+    print(row("Christoffersen p-value", f"{christoffersen_250.p_value:.4f}"))
+    print(row("Christoffersen — reject H0 at 5 %", christoffersen_250.reject))
+    print(sep)
+    print(row("Conditional coverage LR statistic", f"{cc_250.statistic:.4f}"))
+    print(row("Conditional coverage p-value", f"{cc_250.p_value:.4f}"))
+    print(row("Conditional coverage — reject H0 at 5 %", cc_250.reject))
+    print(sep)
+    print(row(f"Basel zone (N={n_250})", zone_250.upper()))
+    print(sep)
+
+    # ------------------------------------------------------------------
     # 6. Plot
     # ------------------------------------------------------------------
     output_path = os.path.join(os.path.dirname(__file__), "output", "backtest_plot.png")
