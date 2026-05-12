@@ -103,10 +103,20 @@ def main() -> None:
     print(row("Basel zone (last 250 days, N={})".format(n_last_250), zone.upper()))
     print(sep)
 
+    # ------------------------------------------------------------------
+    # ES summary (most recent estimate + full-period average)
+    # ------------------------------------------------------------------
     avg_var = var_series.dropna().mean()
-    avg_es = es_series.dropna().mean()
+    avg_es  = es_series.dropna().mean()
+    last_var = var_series.dropna().iloc[-1]
+    last_es  = es_series.dropna().iloc[-1]
+    print(row("Latest VaR estimate", f"{last_var:.2%}"))
+    print(row("Latest ES  estimate", f"{last_es:.2%}"))
+    print(row("ES / VaR ratio (latest)", f"{last_es / last_var:.2f}x"))
+    print(sep)
     print(row("Average rolling VaR (full period)", f"{avg_var:.2%}"))
     print(row("Average rolling ES  (full period)", f"{avg_es:.2%}"))
+    print(row("ES / VaR ratio (average)", f"{avg_es / avg_var:.2f}x"))
     print(sep)
 
     # ------------------------------------------------------------------
