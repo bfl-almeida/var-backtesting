@@ -226,6 +226,63 @@ tests/
 
 ---
 
+## Results interpretation (SPY 2011–2026)
+
+### What model is being tested?
+
+**Historical Simulation VaR** — the simplest VaR model.  Each day, look back
+at the last 250 actual SPY returns, take the 1st percentile, and declare that
+as tomorrow's loss threshold.  No distribution assumption, no formula — just
+raw historical data equally weighted.
+
+### Full-period results (3 862 days)
+
+**58 exceptions, 1.50 % observed vs 1.00 % expected.**
+
+- **Kupiec rejects (p = 0.0035):** the model produced ~50 % too many
+  exceptions.  It systematically understated tail risk.
+- **Christoffersen rejects (p ≈ 0):** exceptions are not independent — they
+  cluster.  During COVID (March 2020), the 2022 rate-hike selloff, and the
+  April 2025 tariff shock, multiple exceptions occurred in quick succession.
+  A flat equal-weight window reacts too slowly to volatility regime changes.
+- **Conditional coverage rejects:** the model fails on both frequency and
+  time-distribution simultaneously.
+
+### Last-250-day results (May 2025 – May 2026)
+
+**0 exceptions → Basel GREEN.**
+
+The worst day in this window was only −2.70 %, while the VaR stood at ~3.70 %.
+This is not because the market was calm — April 2025 saw a sharp SPY selloff
+of ~10 % from tariff announcements.  Those crash days fell just *outside* the
+Basel 250-day window, so they are not counted as exceptions.  However, they
+*are* inside the rolling VaR estimation window, which inflated VaR to 3.7 %
+— making every subsequent day look safe by comparison.
+
+This is the **"ghost of past crises" effect** inherent to flat-window
+historical simulation: the model becomes most conservative *after* a crisis,
+not during it.
+
+```
+April 2025 crash → exceptions occur (outside Basel window, not penalised)
+                 → VaR spikes to ~3.70 % (crash days inside rolling window)
+                 → Subsequent losses of ~2 % safely below the 3.70 % bar
+                 → Basel GREEN for the following year
+```
+
+### Key takeaway
+
+Basel GREEN in a calm post-crisis window is **necessary but not sufficient**
+evidence that a VaR model is well-specified.  Kupiec and Christoffersen provide
+a more honest long-run evaluation.  The natural fix is EWMA-weighted historical
+simulation or GARCH-filtered HS, which respond faster to volatility regime
+changes instead of waiting for a crisis to roll out of the 250-day window.
+
+> *"The model is like a weather forecaster who predicts rain based only on
+> historical averages — and ignores the storm clouds currently on the radar."*
+
+---
+
 ## Future work
 
 - **ES backtesting** — formal backtests for Expected Shortfall (e.g. McNeil
